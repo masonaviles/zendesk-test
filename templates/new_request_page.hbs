@@ -1,0 +1,15 @@
+<div class="container article"  id="main-content">
+  <div class="container-inner">
+
+    {{breadcrumbs}}
+
+    <h1>{{t 'submit_a_request'}}</h1>
+    {{#if parent}}
+      <p class="page-description">{{follow_up}}</p>
+    {{/if}}
+
+    <div class="box box_top">
+      {{request_form wysiwyg=true}}
+    </div>
+  </div>
+</div>

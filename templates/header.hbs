@@ -1,0 +1,96 @@
+<a class="skip-navigation" tabindex="1" href="#main-content">{{t 'skip_navigation' }}</a>
+<div class="lt-layout">
+  <div class="layout__head">
+    <header class="topbar container  lt-py-4 lt-mb-9" data-topbar>
+      <div class="container-inner">
+        <div class="topbar__inner lt-d-lg-flex">
+          <div class="lt-d-flex lt-justify-content-between lt-align-items-center lt-pe-lg-4">
+            {{#link 'help_center'}}
+              <img class="topbar__logo lt-flex-shrink-0" src="{{settings.logo}}" alt="{{t 'logo'}}">
+            {{/link}}
+            <button type="button" role="button" aria-label="Toggle Navigation" class="lines-button x lt-d-lg-none" data-toggle-menu>
+              <span class="lines"></span>
+            </button>
+          </div>
+          <div class="topbar__menu">
+            <div class="topbar__collapse lt-d-lg-flex lt-align-items-lg-center lt-justify-content-lg-between" data-menu>
+              <ul class="lt-list-unstyled lt-my-0 lt-mx-auto lt-ms-lg-0 lt-me-lg-auto lt-d-flex lt-align-items-center lt-justify-content-center  topbar__navigation">
+                {{#if settings.topbar_link_1_toggle}}
+                  <li>
+                    <a class="topbar__link" href="{{#if settings.toggle_translations}}{{dc settings.topbar_link_1_url}}{{else}}{{settings.topbar_link_1_url}}{{/if}}">
+                      {{#if settings.toggle_translations}}
+                        {{dc settings.topbar_link_1_title}}
+                      {{else}}
+                        {{settings.topbar_link_1_title}}
+                      {{/if}}
+                    </a>
+                  </li>
+                {{/if}}
+
+                {{#if settings.topbar_link_2_toggle}}
+                  <li>
+                    <a class="topbar__link" href="{{#if settings.toggle_translations}}{{dc settings.topbar_link_2_url}}{{else}}{{settings.topbar_link_2_url}}{{/if}}">
+                      {{#if settings.toggle_translations}}
+                        {{dc settings.topbar_link_2_title}}
+                      {{else}}
+                        {{settings.topbar_link_2_title}}
+                      {{/if}}
+                    </a>
+                  </li>
+                {{/if}}
+
+                {{#if settings.topbar_link_3_toggle}}
+                  <li>
+                    <a class="topbar__link" href="{{#if settings.toggle_translations}}{{dc settings.topbar_link_3_url}}{{else}}{{settings.topbar_link_3_url}}{{/if}}">
+                      {{#if settings.toggle_translations}}
+                        {{dc settings.topbar_link_3_title}}
+                      {{else}}
+                        {{settings.topbar_link_3_title}}
+                      {{/if}}
+                    </a>
+                  </li>
+                {{/if}}
+              </ul>
+              <div class="topbar__controls">
+                {{#if alternative_locales}}
+                  <div class="dropdown language-selector {{#if settings.toggle_flags}}language-selector--flags{{/if}}" aria-haspopup="true">
+                    <a data-url="{{current_locale.url}}" class="dropdown-toggle topbar__link">
+                      {{current_locale.name}}
+                    </a>
+                    <span class="dropdown-menu" role="menu">
+                      {{#each alternative_locales}}
+                        <a data-url="{{url}}" href="{{url}}" dir="{{direction}}" rel="nofollow" role="menuitem">
+                          {{name}}
+                        </a>
+                      {{/each}}
+                    </span>
+                  </div>
+                {{/if}} 
+
+                {{link 'new_request' class='btn btn--topbar btn--submit-a-request'}}
+                {{#if signed_in}}
+                  <div id="user" class="dropdown user-info" aria-haspopup="true">
+                    <button class="dropdown-toggle dropdown-toggle--user">
+                      {{user_avatar class="lt-user-avatar lt-user-avatar--topbar"}}
+                      {{user_name class="user-name"}}
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                      {{link "my_activities" role="menuitem"}}
+                      {{my_profile role="menuitem"}}
+                      {{change_password role="menuitem"}}
+                      {{link "sign_out" role="menuitem"}}
+                    </div>
+                  </div>
+                {{else}}
+                  {{#link "sign_in" class='btn btn--topbar btn--login'}}
+                    {{t 'sign_in'}}
+                  {{/link}}
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div class="layout__main">

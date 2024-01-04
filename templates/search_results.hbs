@@ -1,0 +1,198 @@
+<div class="container article">
+  <div class="container-inner">
+
+    {{breadcrumbs}}
+    <div class="search-box search-box_page lt-mb-8">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 26">
+        <path d="M20,18.9c1.6-2.1,2.4-4.6,2.4-7.2c0-6.4-5-11.7-11.2-11.7C5,0,0,5.3,0,11.7s5,11.7,11.2,11.7
+              c2.5,0,5-0.9,6.9-2.5l4.6,4.8c0.3,0.3,0.6,0.4,0.9,0.4c0.3,0,0.7-0.1,0.9-0.4c0.5-0.6,0.5-1.4,0-2L20,18.9z M20,12
+              c0,4.9-3.8,9-8.5,9s-9.1-4.1-9.1-9s4.4-9.5,9.1-9.5S20,7,20,12z"/>
+      </svg>
+      {{search instant=true placeholder=settings.search_placeholder}}
+    </div>
+
+    <div id="main-content">
+      <h1>{{t 'search_results'}}</h1>
+    </div>
+
+    <div class="box box_top search-results-box">
+      <div class="row search-results clearfix">
+        <div class="column column--sm-4 column--md-3">
+          <div class="search-results-filters">
+            {{#if help_center_filters}}
+              <section class="search-results-filter" data-search-filter>
+                <h4 class="h6 search-results-filter__title" data-search-filter-toggle>
+                  {{t 'filter_by_help_center'}}</h4>
+                <ul class="list-unstyled search-results-filter__list"
+                    data-search-filter-list>
+                  {{#each help_center_filters}}
+                    <li
+                        class="search-results-filter__item {{#if selected}}is-active{{/if}}">
+                      <a href="{{url}}" class="search-results-filter__link">
+                        <span class="search-results-filter__name">{{name}}</span>
+                        <span class="search-results-filter__count">({{count}})</span>
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </section>
+            {{/if}}
+            {{#if help_center.community_enabled}}
+              <section class="search-results-filter" data-search-filter>
+                <h4 class="h6 search-results-filter__title" data-search-filter-toggle>
+                  {{t 'filter_by_type'}}</h4>
+                <ul class="list-unstyled search-results-filter__list"
+                    data-search-filter-list>
+                  {{#each filters}}
+                    <li class="search-results-filter__item {{#if selected}}is-active{{/if}}"
+                        data-search-filter-item>
+                      <a href="{{url}}" class="search-results-filter__link">
+                        <span class="search-results-filter__name">{{name}}</span>
+                        <span class="search-results-filter__count">({{count}})</span>
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </section>
+            {{/if}}
+            {{#if subfilters}}
+              <section class="search-results-filter" data-search-filter>
+                {{#is current_filter.identifier 'knowledge_base'}}
+                  <h4 class="h6 search-results-filter__title"
+                      data-search-filter-toggle>{{t 'filter_by_category'}}</h4>
+                {{/is}}
+                {{#is current_filter.identifier 'community'}}
+                  <h4 class="h6 search-results-filter__title"
+                      data-search-filter-toggle>{{t 'filter_by_topic'}}</h4>
+                {{/is}}
+                <ul class="list-unstyled search-results-filter__list search-result__subfilters"
+                    data-search-filter-list data-search-subfilters>
+                  {{#each subfilters}}
+                    <li class="search-results-filter__item search-results-filter__item--subfilter {{#if selected}}is-active{{/if}}"
+                        data-search-filter-item>
+                      <a href="{{url}}" class="search-results-filter__link">
+                        <span class="search-results-filter__name">{{name}}</span>
+                        <span class="search-results-filter__count">({{count}})</span>
+                      </a>
+                    </li>
+                  {{/each}}
+                  {{#is current_filter.identifier 'knowledge_base'}}
+                    <li class="search-results-filter__item">
+                      <button class="search-result__show-more is-hidden"
+                              data-search-filter-show-more>{{t 'show_more_categories'}}</button>
+                    </li>
+                  {{/is}}
+                  {{#is current_filter.identifier 'community'}}
+                    <li class="search-results-filter__item">
+                      <button class="search-result__show-more is-hidden"
+                              data-search-filter-show-more>{{t 'show_more_topics'}}</button>
+                    </li>
+                  {{/is}}
+                </ul>
+              </section>
+            {{/if}}
+              {{#if content_tag_filters}}
+              <section class="search-results-filter" aria-expanded="false" data-search-filter>
+                <h4 class="h6 search-results-filter__title lt-d-none lt-d-lg-block">{{t 'filter_content_tag'}}</h4>
+                    <button 
+                    class="h6 search-results-filter__title search-results-filter__title-btn lt-d-lg-none"
+                    type="button" 
+                    aria-expanded="false" 
+                    data-search-filter-toggle>
+                    {{t 'filter_content_tag'}}
+                  </button>
+                <ul class="list-unstyled search-results-filter__list"  data-search-filter-list >
+                  {{#each content_tag_filters}}
+                    {{#if selected}}
+                      <li class="lt-m-1">
+                        <div class="content-tags__item content-tags__item--search">
+                          <span class="label">{{name}}</span>
+                          <a href="{{url}}" aria-current="page">
+                            <span>
+                              <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false"  aria-hidden="true" >
+                                  <path stroke="currentColor" stroke-linecap="round" d="M3 9l6-6m0 6L3 3"/>
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
+                      </li>
+                    {{/if}}
+                  {{/each}}
+                </ul>
+              </section>
+            {{/if}}
+          </div>
+        </div>
+      
+        <div class="column column--sm-8 column--md-9" id="main-content">
+          <h1 class="search-results-count">
+            {{#if results}}
+          {{#is current_filter.identifier 'unified'}}
+            {{#if content_tag_filters }}
+              {{#each (filter content_tag_filters on="selected" equals=true)}}
+                {{t 'results_content_tag' content_tag=name count=../results_count}}
+              {{/each}}
+            {{else}}
+              {{t 'results' query=query count=results_count}}
+            {{/if}}
+          {{else}}
+            {{#if content_tag_filters }}
+              {{#each (filter content_tag_filters on="selected" equals=true)}}
+                {{t 'results_content_tag' content_tag=name count=../results_count}}
+              {{/each}}
+            {{else}}
+              {{#unless current_subfilter.identifier}}
+                {{t 'results' query=query count=results_count}}
+              {{else}}
+                {{t 'results_with_scope' query=query count=results_count scope_name=current_subfilter.name}}
+              {{/unless}}
+            {{/if}}
+          {{/is}}
+        {{/if}}</h1>
+          {{#if results}}
+            <ul class="list-unstyled search-results-list">
+              {{#each results}}
+                <li class="search-result result-{{type}}">
+                  <h3 class="h5 search-result__title">
+                    <a href="{{url}}" class="search-result-link">{{title}}</a>
+                    {{#if vote_sum}}
+                      <span class="search-result-votes"><span
+                              class="fas fa-thumbs-up"></span> {{vote_sum}}</span>
+                    {{/if}}
+                  </h3>
+                  <ol class="breadcrumbs breadcrumbs--search-results">
+                    {{#each path_steps}}
+                      <li title="{{name}}"><a href="{{url}}">{{name}}</a></li>
+                    {{/each}}
+                  </ol>
+                  <p class="search-result__description">{{text}}</p>
+      
+                  <div class="meta search-result__meta">
+                    <span class="meta__item">
+                      {{#link "user_profile" id=author.id class="user-profile"}}
+                      {{author.name}}
+                      {{/link}}
+                    </span>
+                    <span class="meta__item">{{date created_at}}</span>
+                    <span class="meta__item">
+                      {{t 'comments_count' count=comment_count}}
+                    </span>
+                  </div>
+                </li>
+              {{/each}}
+            </ul>
+          {{else}}
+            <p>
+              {{t 'no_results_unified'}}
+              {{#link 'help_center'}}
+              {{t 'browse_help_center'}}
+              {{/link}}
+            </p>
+          {{/if}}
+          {{pagination}}
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>

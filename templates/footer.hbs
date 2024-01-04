@@ -1,0 +1,193 @@
+</div>
+<div class="footer">
+  <footer class="container">
+    <div class="container-inner">
+      <div class="row">
+        <div class="column column--sm-5 custom-block">
+          <div class="footer__logo">
+            {{#link 'help_center'}}
+              <img src="{{settings.footer_logo}}" alt="{{t 'logo'}}">
+            {{/link}}
+          </div>
+          <div class="footer__text">
+            {{#if settings.toggle_translations}}
+              {{dc settings.footer_text}}
+            {{else}}
+              {{settings.footer_text}}
+            {{/if}}
+          </div>
+        </div>
+        <div class="column column--sm-2 column--xs-6 custom-block">
+          {{#if settings.footer_link_group_1_toggle}}
+            <div class="footer__header">
+              {{#if settings.toggle_translations}}
+                {{dc settings.footer_link_group_1_title}}
+              {{else}}
+                {{settings.footer_link_group_1_title}}
+              {{/if}}
+            </div>
+          {{/if}}
+
+          <ul class="footer__menu">
+            {{#if settings.footer_link_1_toggle}}
+              <li>
+                <a target="_blank" rel="noopener noreferrer"
+                    href="{{#if settings.toggle_translations}}{{dc settings.footer_link_1_url}}{{else}}{{settings.footer_link_1_url}}{{/if}}">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.footer_link_1_title}}
+                  {{else}}
+                    {{settings.footer_link_1_title}}
+                  {{/if}}
+                </a>
+              </li>
+            {{/if}}
+            {{#if settings.footer_link_2_toggle}}
+              <li>
+                <a target="_blank" rel="noopener noreferrer"
+                    href="{{#if settings.toggle_translations}}{{dc settings.footer_link_2_url}}{{else}}{{settings.footer_link_2_url}}{{/if}}">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.footer_link_2_title}}
+                  {{else}}
+                    {{settings.footer_link_2_title}}
+                  {{/if}}
+                </a>
+              </li>
+            {{/if}}
+            {{#if settings.footer_link_3_toggle}}
+              <li>
+                <a target="_blank" rel="noopener noreferrer"
+                  href="{{#if settings.toggle_translations}}{{dc settings.footer_link_3_url}}{{else}}{{settings.footer_link_3_url}}{{/if}}">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.footer_link_3_title}}
+                  {{else}}
+                    {{settings.footer_link_3_title}}
+                  {{/if}}
+                </a>
+              </li>
+            {{/if}}
+          </ul>
+        </div>
+        <div class="column column--sm-2 column--xs-6 custom-block">
+          {{#if settings.footer_link_group_2_toggle}}
+            <div class="footer__header">
+              {{#if settings.toggle_translations}}
+                {{dc settings.footer_link_group_2_title}}
+              {{else}}
+                {{settings.footer_link_group_2_title}}
+              {{/if}}
+            </div>
+          {{/if}}
+          <ul class="footer__menu">
+          {{#if settings.footer_link_4_toggle}}
+            <li>
+              <a target="_blank" rel="noopener noreferrer"
+                href="{{#if settings.toggle_translations}}{{dc settings.footer_link_4_url}}{{else}}{{settings.footer_link_4_url}}{{/if}}">
+                {{#if settings.toggle_translations}}
+                  {{dc settings.footer_link_4_title}}
+                {{else}}
+                  {{settings.footer_link_4_title}}
+                {{/if}}
+              </a>
+            </li>
+          {{/if}}
+          {{#if settings.footer_link_5_toggle}}
+            <li>
+              <a target="_blank" rel="noopener noreferrer"
+                href="{{#if settings.toggle_translations}}{{dc settings.footer_link_5_url}}{{else}}{{settings.footer_link_5_url}}{{/if}}">
+                {{#if settings.toggle_translations}}
+                  {{dc settings.footer_link_5_title}}
+                {{else}}
+                  {{settings.footer_link_5_title}}
+                {{/if}}
+              </a>
+            </li>
+          {{/if}}
+          {{#if settings.footer_link_6_toggle}}
+            <li>
+              <a target="_blank" rel="noopener noreferrer"
+                href="{{#if settings.toggle_translations}}{{dc settings.footer_link_6_url}}{{else}}{{settings.footer_link_6_url}}{{/if}}">
+                {{#if settings.toggle_translations}}
+                  {{dc settings.footer_link_6_title}}
+                {{else}}
+                  {{settings.footer_link_6_title}}
+                {{/if}}
+              </a>
+            </li>
+          {{/if}}
+          </ul>
+        </div>
+        <div class="column column--sm-3 custom-block">
+          {{#if settings.footer_link_group_3_toggle}}
+            <div class="footer__header">
+              {{#if settings.toggle_translations}}
+                {{dc settings.footer_link_group_3_title}}
+              {{else}}
+                {{settings.footer_link_group_3_title}}
+              {{/if}}
+            </div>
+          {{/if}}
+          <ul class="footer__menu footer__menu_contacts">
+            {{#if settings.footer_link_7_toggle}}
+              <li>
+                <a target="_blank" rel="noopener noreferrer"
+                  href="{{#if settings.toggle_translations}}{{dc settings.footer_link_7_url}}{{else}}{{settings.footer_link_7_url}}{{/if}}">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.footer_link_7_title}}
+                  {{else}}
+                    {{settings.footer_link_7_title}}
+                  {{/if}}
+                </a>
+              </li>
+            {{/if}}
+            {{#if settings.footer_link_8_toggle}}
+              <li>
+                <a target="_blank" rel="noopener noreferrer"
+                  href="{{#if settings.toggle_translations}}{{dc settings.footer_link_8_url}}{{else}}{{settings.footer_link_8_url}}{{/if}}">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.footer_link_8_title}}
+                  {{else}}
+                    {{settings.footer_link_8_title}}
+                  {{/if}}
+                </a>
+              </li>
+            {{/if}}
+          </ul>
+          <div class="footer__social">
+            {{#if settings.toggle_facebook_icon}}
+              <a href="{{#if settings.toggle_translations}}{{dc settings.facebook_url}}{{else}}{{settings.facebook_url}}{{/if}}" target="_blank" rel="noopener noreferrer" class="footer__social-link footer__social-link_facebook fab fa-facebook-f"></a>
+            {{/if}}
+            {{#if settings.toggle_twitter_icon}}
+              <a href="{{#if settings.toggle_translations}}{{dc settings.twitter_url}}{{else}}{{settings.twitter_url}}{{/if}}" target="_blank" rel="noopener noreferrer" class="footer__social-link footer__social-link_twitter fab fa-twitter"></a>
+            {{/if}}
+            {{#if settings.toggle_linkedin_icon}}
+              <a href="{{#if settings.toggle_translations}}{{dc settings.linkedin_url}}{{else}}{{settings.linkedin_url}}{{/if}}" target="_blank" rel="noopener noreferrer" class="footer__social-link footer__social-link_linkedin fab fa-linkedin-in"></a>
+            {{/if}}
+            {{#if settings.toggle_youtube_icon}}
+              <a href="{{#if settings.toggle_translations}}{{dc settings.youtube_url}}{{else}}{{settings.youtube_url}}{{/if}}" target="_blank" rel="noopener noreferrer" class="footer__social-link footer__social-link_youtube-play fab fa-youtube"></a>
+            {{/if}}
+            {{#if settings.toggle_instagram_icon}}
+              <a href="{{#if settings.toggle_translations}}{{dc settings.instagram_url}}{{else}}{{settings.instagram_url}}{{/if}}" target="_blank" rel="noopener noreferrer" class="footer__social-link footer__social-link_instagram fab fa-instagram"></a>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="footer_copyright">&copy; {{help_center.name}}. Theme by
+        <a href="https://www.lotusthemes.com" target="_blank" rel="noopener noreferrer">Lotus Themes</a></div>
+    </div>
+  </footer>
+</div>
+</div>
+
+{{#if settings.toggle_translations}}
+  <div hidden data-lt-i18n-dictionary>
+    <div data-lt-i18n="search_placeholder">{{dc settings.search_placeholder}}</div>
+  </div>
+
+  <script>
+    var $ltDictionary = $('[data-lt-i18n-dictionary]');
+    $('[role="search"] input[type="search"]').each(function (index, element) {
+      $(element).attr('placeholder', $ltDictionary.find('[data-lt-i18n="search_placeholder"]').html());
+    });
+  </script>
+{{/if}}

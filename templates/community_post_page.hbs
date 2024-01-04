@@ -1,0 +1,206 @@
+<div
+  class="container article post {{#if post.featured}} post--featured {{/if}} {{#if post.pinned}} post--pinned {{/if}}"
+  id="main-content">
+  <div class="container-inner">
+    {{breadcrumbs}}
+    {{#is post.status 'none'}}
+    {{else}}
+    <span class="post-status post-status--{{post.status_dasherized}}">{{post.status_name}} </span>
+    {{/is}}
+    <h1 itemprop="name">
+      {{post.title}}  
+      <div class="post__actions">
+        {{#post.actions}}
+          <span class="fas fa-cog"></span>
+        {{/post.actions}}
+      </div>
+    </h1>
+
+    <div class="lt-d-sm-flex lt-justify-content-between lt-mb-4 lt-align-items-start">
+      <div class="lt-mb-2 lt-mb-sm-0 lt-me-sm-4">
+        <div class="lt-entry-info">
+          <div class="lt-entry-info__avatar">
+            <div class="lt-avatar {{#if post.author.agent}}lt-avatar--agent{{/if}}">
+              <img class="lt-user-avatar lt-user-avatar--default" src="{{post.author.avatar_url}}" />
+            </div>
+          </div>
+          <div class="lt-entry-info__content">
+            <b class="author">
+              {{#link 'user_profile' id=post.author.id}}
+                {{post.author.name}}
+              {{/link}}
+            </b>
+            <div class="meta">                      
+              {{#if post.editor}}
+                {{t 'updated'}} {{date post.edited_at timeago=true}}
+              {{else}}
+                {{date post.created_at timeago=true}}
+              {{/if}}
+            </div>
+            {{#if post.author.badges}}
+              <div class="lt-pt-1">
+                {{#each post.author.badges}}
+                  {{#is category_slug "titles"}}
+                    <span class="community-badge community-badge-titles"
+                          title="{{description}}" aria-label="{{name}}">
+                      {{#if icon_url}}
+                        <img src="{{icon_url}}" />
+                      {{/if}}
+                      {{name}}
+                    </span>
+                  {{/is}}
+                {{/each}}
+            
+                {{#each post.author.badges}}
+                  {{#is category_slug "achievements"}}
+                    {{#if icon_url}}
+                      <div class="community-badge community-badge-achievements">
+                        <img src="{{icon_url}}" alt="{{name}}"
+                              title="{{name}} | {{description}}" aria-label="{{name}}" />
+                      </div>
+                    {{/if}}
+                  {{/is}}
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      
+      <div class="lt-community-follow lt-d-flex lt-d-print-none lt-align-items-center">
+        {{#if settings.show_follow_community_post}}
+          {{subscribe}}
+        {{/if}}
+      </div>
+    </div>
+
+
+    <div class="box">
+      <div class="row">
+        <div class="column column--md-8 article__body">
+          <div class="lt-d-flex lt-justify-content-between">
+            <div class="lt-pe-4">
+              {{post.details}}
+            </div>
+            <div class="vote">
+              {{#post.vote 'up' class='btn vote__control vote__control--up' role='button' selected_class='vote__control--voted'}}
+                <span class="fas fa-arrow-up"></span>
+              {{/post.vote}}
+              <div class="vote-sum">
+                {{post.vote 'sum'}}
+              </div>
+              {{#post.vote 'down' class='btn vote__control vote__control--down' role='button'}}
+                <span class="fas fa-arrow-down"></span>
+              {{/post.vote}}
+            </div>
+          </div>
+        </div>
+        <div class="column column--md-4">
+          <p class="post-callout__title"><b>{{t 'suggest_new_post'}}</b></p>
+          {{link 'new_post' role='button' class='btn btn--primary'}}
+        </div>
+      </div>
+    </div>
+
+    <div class="box comments" id="comments" itemscope itemtype="http://schema.org/UserComments">
+      <div class="comments__header">
+        <div class="comments__title">
+          <h3 class="h3">{{t 'comments'}}</h3>
+          <p class="meta">{{t 'comments_count' count=post.comment_count}}</p>
+        </div>
+
+        <div class="comment__sorter">
+          {{#if comments}}
+          <div class="dropdown">
+            <a class="dropdown-toggle btn btn--default">{{t 'sort_by'}}</a>
+            <span class="dropdown-menu dropdown-menu-end" role="menu">
+              {{#each comment_sorters}}
+              <a aria-selected="{{selected}}" href="{{url}}" role="menuitem">{{name}}</a>
+              {{/each}}
+            </span>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+      {{#if comments}}
+      <ul class="comments__list">
+        {{#each comments}}
+        <li class="comment {{#if official}}comment--official{{/if}}" id="{{anchor}}">
+          <div class="comment__content lt-flex-grow-1">
+            {{#if official}}
+            <span class="comment__official-heading">{{t 'official_comment'}}</span>
+            {{/if}}
+            <div class="lt-entry-info">
+              <div class="lt-entry-info__avatar">
+                <div class="lt-avatar {{#if author.agent}}lt-avatar--agent{{/if}}">
+                  <img class="lt-user-avatar lt-user-avatar--default" src="{{author.avatar_url}}" />
+                </div>
+              </div>
+              <div class="lt-entry-info__content">
+                <b class="lt-entry-info__author">
+                  {{#link 'user_profile' id=author.id}}
+                  {{author.name}}
+                  {{/link}}
+                </b>
+                <div class="meta">{{date created_at}}</div>
+                <div class="comment-labels">
+                  {{#with ticket}}
+                  <a href="{{url}}" target="_zendesk_lotus" class="status-label escalation-badge">
+                    {{t 'request'}} {{id}}
+                  </a>
+                  {{/with}}
+                  {{#if pending}}
+                  <span
+                    class="post-status comment-pending status-label status-label-pending-moderation">{{t 'pending_approval'}}</span>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+            <div class="comment__body">
+              {{body}}
+            </div>
+          </div>
+          <div class="comment-actions-container">
+            {{#unless official}}
+            <div class="vote">
+              {{#vote 'up' class='btn vote__control vote__control--up' role='button' selected_class='vote__control--voted'}}
+              <span class="fas fa-arrow-up"></span>
+              {{/vote}}
+              <div class="vote-sum">
+                {{vote 'sum'}}
+              </div>
+              {{#vote 'down' class='btn vote__control vote__control--down' role='button'}}
+              <span class="fas fa-arrow-down"></span>
+              {{/vote}}
+            </div>
+            {{/unless}}
+            <div class="comment__actions">
+              {{actions}}
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+
+      {{pagination}}
+      {{/if}}
+    </div>
+    <div class="box">
+      <p class="comments__callout">{{comment_callout}}</p>
+      {{#form 'comment' class='comment-form'}}
+      <div class="comment-form__avatar">
+        {{user_avatar class='lt-user-avatar lt-user-avatar--default'}}
+      </div>
+      <div class="comment-form__body">
+        {{wysiwyg 'body'}}
+      </div>
+      <div class="comment-form__controls">
+        {{checkbox 'official'}}
+        {{label 'official'}}
+      </div>
+      {{input type='submit'}}
+      {{/form}}
+    </div>
+  </div>
+</div>

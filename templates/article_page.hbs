@@ -1,0 +1,319 @@
+<div class="container article" id="main-content">
+  <div class="container-inner">
+    {{breadcrumbs}}
+    <h1 itemprop="name">
+      {{#if article.internal}}
+        <span class="fas fa-lock" title="{{t 'internal'}}"> </span>
+      {{/if}}
+      {{article.title}}
+    </h1>
+
+    <div class="lt-d-sm-flex lt-justify-content-between lt-mb-4 lt-align-items-start">
+      <div class="lt-mb-2 lt-me-sm-4">
+        <div class="lt-entry-info ">
+          {{#if settings.show_article_author}}
+            <div class="lt-entry-info__avatar">
+              <div
+                  class="lt-avatar {{#if article.author.agent}}lt-avatar--agent{{/if}}">
+                <img 
+                  class="lt-user-avatar lt-user-avatar--default"
+                  src="{{article.author.avatar_url}}" />
+              </div>
+            </div>
+          {{/if}}
+          <div class="lt-entry-info__content">
+            {{#if settings.show_article_author}}
+              <b class="author">
+                {{#link 'user_profile' id=article.author.id}}
+                {{article.author.name}}
+                {{/link}}
+              </b>
+            {{/if}}
+            <div class="meta">
+              {{#is article.created_at article.edited_at}}
+                {{date article.created_at timeago=true}}
+              {{else}}
+                {{t 'updated'}} {{date article.edited_at timeago=true}}
+              {{/is}}
+            </div>
+
+            {{#if article.author.badges}}
+              <div class="lt-pt-1">
+                {{#each article.author.badges}}
+                  {{#is category_slug "titles"}}
+                    <span class="community-badge community-badge-titles" title="{{description}}"
+                          aria-label="{{name}}">
+                      {{#if icon_url}}
+                        <img src="{{icon_url}}" />
+                      {{/if}}
+                      {{name}}
+                    </span>
+                  {{/is}}
+                {{/each}}
+                
+                {{#each article.author.badges}}
+                  {{#is category_slug "achievements"}}
+                    {{#if icon_url}}
+                      <div class="community-badge community-badge-achievements">
+                        <img src="{{icon_url}}" alt="{{name}}"
+                            title="{{name}} | {{description}}" aria-label="{{name}}" />
+                      </div>
+                    {{/if}}
+                  {{/is}}
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="lt-article-subscribe lt-d-flex lt-d-print-none lt-align-items-center">
+        {{#if settings.show_follow_article}}
+          {{subscribe}}
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="row">
+        <div class="article-container__column article-container__sidenav">
+          <div data-sidenav='{"mobileBreakpoint": 991}'></div>
+        </div>
+        
+        <div class="article-container__column article-container__article">
+          <div class="article__body" data-article>
+            {{article.body}}
+  
+            <div class="article__attachments">
+              {{#if attachments}}
+                <ul class="list-unstyled attachment-list">
+                  {{#each attachments}}
+                    <li class="attachment-list__item">
+                      <span class="fas fa-paperclip attachment-list__icon"></span>
+                      <a href="{{url}}" target="_blank">{{name}}</a>
+                      <div class="meta">({{size}})</div>
+                    </li>
+                  {{/each}}
+                </ul>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div class="article-container__column article-container__toc">
+          <div data-toc='{"mobileBreakpoint": 991}'></div>
+        </div>
+        <div class="article-container__column article-container__sidebar">
+          <section class="related-articles">
+            <h3 class="section-articles__title">{{t 'articles_in_section'}}</h3>
+            <ul class="section-articles__list">
+              {{#each section.articles}}
+                <li class="section-articles__item">
+                  <a href="{{url}}" class="section-articles__link {{#is id ../article.id}}is-active{{/is}}">{{title}}</a>
+                </li>
+              {{/each}}
+            </ul>
+            {{#if section.more_articles}}
+              <a href="{{section.url}}" class="btn btn--default">{{t 'see_more'}}</a>
+            {{/if}}
+          </section>
+        </div>
+      </div>
+    </div>
+
+      {{#if (compare article.content_tags.length ">" 0)}}
+        <section class="box">
+            <div class="content-tags">
+              <h4>{{t 'content_tags_label'}}:</h4>
+              <ul class="content-tags__list lt-d-flex lt-mb-0">
+                {{#each article.content_tags}}
+                  <li class="lt-me-2 lt-mb-2" data-content-tag-id="{{id}}">
+                    {{#link "search_result" class="content-tags__item"  content_tag_id=id}}
+                      {{name}}
+                    {{/link}}
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+        </section>
+      {{/if}}
+
+    {{#with article}}
+      <div class="box article__vote">
+        <div class="article__vote-question">{{t 'was_this_article_helpful'}}</div>
+        <div class="article__vote-controls lt-d-flex lt-flex-column lt-flex-sm-row lt-justify-content-center">
+          {{vote 'up' class='btn btn--default  article__vote-item article__vote-item_up lt-px-sm-6 lt-py-3 lt-mx-sm-2 lt-mb-4 lt-mb-sm-0' selected_class='article__vote-item_voted' role='button'}}
+          {{vote 'down' class='btn btn--default article__vote-item article__vote-item_down lt-px-sm-6 lt-py-3 lt-mx-sm-2' selected_class='article__vote-item_voted' role='button'}}
+        </div>
+        <div class="article__vote-count">
+          {{vote 'label' class='meta'}}
+        </div>
+      </div>
+    {{/with}}
+
+
+
+    {{#if settings.show_article_comments}}
+      <div class="box comments" id="comments" itemscope itemtype="http://schema.org/UserComments">
+        <div class="comments__header">
+          <div class="comments__title">
+            <h3 class="h3">{{t 'comments'}}</h3>
+            <p class="meta">{{t 'comments_count' count=article.comment_count}}</p>
+          </div>
+
+          <div class="comment__sorter">
+            {{#if comments}}
+              <div class="dropdown">
+                <a class="dropdown-toggle btn btn--default">{{t 'sort_by'}}</a>
+                <span class="dropdown-menu dropdown-menu-end" role="menu">
+                  {{#each comment_sorters}}
+                    <a aria-selected="{{selected}}" href="{{url}}" role="menuitem">{{name}}</a>
+                  {{/each}}
+                </span>
+              </div>
+            {{/if}}
+          </div>
+        </div>
+
+        {{#if comments}}
+          <ul class="comments__list">
+            {{#each comments}}
+              <li class="comment" id="{{anchor}}">
+                <div class="comment__content">
+                  <div class="lt-entry-info">
+                    <div class="lt-entry-info__avatar">
+                      <div class="lt-avatar {{#if author.agent}}lt-avatar--agent{{/if}}">
+                        <img class="lt-user-avatar lt-user-avatar--default"
+                            src="{{author.avatar_url}}" alt="Avatar">
+                      </div>
+                    </div>
+                    <div class="lt-entry-info__content">
+                      <b class="lt-entry-info__author">
+                        {{#link 'user_profile' id=author.id}}
+                          {{author.name}}
+                        {{/link}}
+                      </b>
+                      <div class="meta">{{date created_at}}</div>
+
+                      {{#if author.badges}}
+                        <div class="lt-pt-1">
+                          {{#each author.badges}}
+                            {{#is category_slug "titles"}}
+                              <span class="community-badge community-badge-titles"
+                                    title="{{description}}" aria-label="{{name}}">
+                                {{#if icon_url}}
+                                  <img src="{{icon_url}}" />
+                                {{/if}}
+                                {{name}}
+                              </span>
+                            {{/is}}
+                          {{/each}}
+                      
+                          {{#each author.badges}}
+                            {{#is category_slug "achievements"}}
+                              {{#if icon_url}}
+                                <div class="community-badge community-badge-achievements">
+                                  <img src="{{icon_url}}" alt="{{name}}"
+                                      title="{{name}} | {{description}}" aria-label="{{name}}" />
+                                </div>
+                              {{/if}}
+                            {{/is}}
+                          {{/each}}
+                        </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                  <div class="comment__body">
+                    {{body}}
+                  </div>
+                </div>
+                <div class="comment__voting-and-actions">
+                  {{#unless official}}
+                    <div class="vote">
+                      {{#vote 'up' class='btn vote__control vote__control--up' role='button' selected_class='vote__control--voted'}}
+                        <span class="fas fa-arrow-up"></span>
+                      {{/vote}}
+                      <div class="vote-sum">
+                        {{vote 'sum'}}
+                      </div>
+                      {{#vote 'down' class='btn vote__control vote__control--down' role='button'}}
+                        <span class="fas fa-arrow-down"></span>
+                      {{/vote}}
+                    </div>
+                  {{/unless}}
+                  <div class="comment__actions">
+                    {{#actions}}
+                      <span class="fas fa-cog"></span>
+                    {{/actions}}
+                  </div>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+
+          {{pagination}}
+        {{/if}}
+        <p class="comments__callout lt-pt-4">{{comment_callout}}</p>
+        {{#form 'comment' class='comment-form'}}
+          <div class="comment-form__avatar">
+            {{user_avatar class='lt-user-avatar lt-user-avatar--default'}}
+          </div>
+          <div class="comment-form__body">
+            {{wysiwyg 'body'}}
+          </div>
+          <div class="comment-form__controls">
+            {{checkbox 'official'}}
+            {{label 'official'}}
+          </div>
+          {{input type='submit'}}
+        {{/form}}
+      </div>
+    {{/if}}
+
+    <div class="search-box search-box_page lt-mb-9">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 26">
+        <path d="M20,18.9c1.6-2.1,2.4-4.6,2.4-7.2c0-6.4-5-11.7-11.2-11.7C5,0,0,5.3,0,11.7s5,11.7,11.2,11.7
+              c2.5,0,5-0.9,6.9-2.5l4.6,4.8c0.3,0.3,0.6,0.4,0.9,0.4c0.3,0,0.7-0.1,0.9-0.4c0.5-0.6,0.5-1.4,0-2L20,18.9z M20,12
+              c0,4.9-3.8,9-8.5,9s-9.1-4.1-9.1-9s4.4-9.5,9.1-9.5S20,7,20,12z"/>
+      </svg>
+      {{search instant=true placeholder=settings.search_placeholder}}
+    </div>
+
+      <div class="cta-box">
+        <div class="lt-row lt-align-items-center">
+          <div class="lt-col-lg-6 lt-mb-4 lt-mb-lg-0">
+            <div class="cta-box__left lt-d-flex lt-align-items-center">
+              <img class="cta-box__img lt-flex-shrink-0 lt-me-4" src="{{settings.article_1}}">
+              <div class="cta-box__content">
+                <div class="h3 cta-box__title">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.have_more_questions}}
+                  {{else}}
+                    {{settings.have_more_questions}}
+                  {{/if}}
+                </div>
+                {{link 'new_request' class='btn btn--primary still-have-questions__btn'}}
+              </div>
+            </div>
+          </div>
+        {{#if settings.show_article_sharing}}
+          <div class="lt-col-lg-6 lt-mb-4 lt-mb-lg-0 ">
+            <div class="cta-box__right lt-d-flex lt-align-items-center lt-justify-content-lg-end">
+              <img class="cta-box__img lt-flex-shrink-0 lt-me-4" src="{{settings.article_2}}">
+              <div class="cta-box__content">
+                <div class="h3 cta-box__title">
+                  {{#if settings.toggle_translations}}
+                    {{dc settings.share_it}}
+                  {{else}}
+                    {{settings.share_it}}
+                  {{/if}}
+                </div>
+                {{share}}
+              </div>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+
+  </div>
+</div>
