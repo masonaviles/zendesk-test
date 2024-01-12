@@ -7027,6 +7027,15 @@ a.notification-dismiss {
   border-color: $brand_primary;
 }
 
+/* Topbar */
+
+@media only screen and (min-width: 991px) {
+  .topbar__navigation {
+    justify-content: space-around;
+    width: 63%;
+  }
+}
+
 /* Homepage */
 
 @media only screen and (min-width: 991px) {
