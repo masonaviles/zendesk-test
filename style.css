@@ -149,7 +149,7 @@ a {
 
 a:hover,
 a:focus {
-  color: darken($link_color, 15%);
+  color: $brand_primary;
   text-decoration: none;
 }
 
