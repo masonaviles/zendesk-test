@@ -50,42 +50,34 @@
                     </a>
                   </li>
                 {{/if}}
-              </ul>
-              <div class="topbar__controls">
-                {{#if alternative_locales}}
-                  <div class="dropdown language-selector {{#if settings.toggle_flags}}language-selector--flags{{/if}}" aria-haspopup="true">
-                    <a data-url="{{current_locale.url}}" class="dropdown-toggle topbar__link">
-                      {{current_locale.name}}
-                    </a>
-                    <span class="dropdown-menu" role="menu">
-                      {{#each alternative_locales}}
-                        <a data-url="{{url}}" href="{{url}}" dir="{{direction}}" rel="nofollow" role="menuitem">
-                          {{name}}
-                        </a>
-                      {{/each}}
-                    </span>
-                  </div>
-                {{/if}} 
 
-                {{link 'new_request' class='btn btn--topbar btn--submit-a-request'}}
-                {{#if signed_in}}
-                  <div id="user" class="dropdown user-info" aria-haspopup="true">
-                    <button class="dropdown-toggle dropdown-toggle--user">
-                      {{user_avatar class="lt-user-avatar lt-user-avatar--topbar"}}
-                      {{user_name class="user-name"}}
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                      {{link "my_activities" role="menuitem"}}
-                      {{my_profile role="menuitem"}}
-                      {{change_password role="menuitem"}}
-                      {{link "sign_out" role="menuitem"}}
-                    </div>
-                  </div>
-                {{else}}
-                  {{#link "sign_in" class='btn btn--topbar btn--login'}}
-                    {{t 'sign_in'}}
-                  {{/link}}
+                {{#if settings.topbar_link_4_toggle}}
+                  <li>
+                    <a class="topbar__link" href="{{#if settings.toggle_translations}}{{dc settings.topbar_link_4_url}}{{else}}{{settings.topbar_link_4_url}}{{/if}}">
+                      {{#if settings.toggle_translations}}
+                        {{dc settings.topbar_link_4_title}}
+                      {{else}}
+                        {{settings.topbar_link_4_title}}
+                      {{/if}}
+                    </a>
+                  </li>
                 {{/if}}
+
+                {{#if settings.topbar_link_5_toggle}}
+                  <li>
+                    <a class="topbar__link" href="{{#if settings.toggle_translations}}{{dc settings.topbar_link_5_url}}{{else}}{{settings.topbar_link_5_url}}{{/if}}">
+                      {{#if settings.toggle_translations}}
+                        {{dc settings.topbar_link_5_title}}
+                      {{else}}
+                        {{settings.topbar_link_5_title}}
+                      {{/if}}
+                    </a>
+                  </li>
+                {{/if}}
+              </ul>
+              <div class="btn-container">
+                <a class="btn btn-outline-success" title="Sign In" id="signInButton" style="margin-right: 0.75rem;" href="https://uptime.com/login">Sign In</a>
+                <a class="btn btn-success" title="Try For Free" id="registerButton" href="https://uptime.com/accounts/register">Try For Free</a>
               </div>
             </div>
           </div>

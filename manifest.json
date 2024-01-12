@@ -385,6 +385,58 @@
       ]
     },
     {
+      "label": "Topbar Link 4",
+      "variables": [
+        {
+          "identifier": "topbar_link_4_toggle",
+          "type": "checkbox",
+          "description": "Choose to display or not the link",
+          "label": "Toggle the link",
+          "value": true
+        },
+        {
+          "identifier": "topbar_link_4_title",
+          "type": "text",
+          "description": "Link title",
+          "label": "Title",
+          "value": "Link 4"
+        },
+        {
+          "identifier": "topbar_link_4_url",
+          "type": "text",
+          "description": "Link URL",
+          "label": "URL",
+          "value": "#link4"
+        }
+      ]
+    },
+    {
+      "label": "Topbar Link 5",
+      "variables": [
+        {
+          "identifier": "topbar_link_5_toggle",
+          "type": "checkbox",
+          "description": "Choose to display or not the link",
+          "label": "Toggle the link",
+          "value": true
+        },
+        {
+          "identifier": "topbar_link_5_title",
+          "type": "text",
+          "description": "Link title",
+          "label": "Title",
+          "value": "Link 5"
+        },
+        {
+          "identifier": "topbar_link_5_url",
+          "type": "text",
+          "description": "Link URL",
+          "label": "URL",
+          "value": "#link5"
+        }
+      ]
+    },
+    {
       "label": "Formatting content colors",
       "variables": [
         {
