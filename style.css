@@ -2447,8 +2447,7 @@ input[type="submit"]:active,
 }
 
 .topbar__link:hover {
-  color: $topbar_link_color;
-  opacity: 0.6;
+  color: $brand_primary;
 }
 
 [dir="ltr"] .topbar__navigation > * + * {
