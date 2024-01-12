@@ -6987,3 +6987,14 @@ a.notification-dismiss {
   width: 40px;
   height: 40px;
 }
+
+
+/* Homepage */
+
+@media only screen and (min-width: 991px) {
+  #main-content .category-tree {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+  }
+}
